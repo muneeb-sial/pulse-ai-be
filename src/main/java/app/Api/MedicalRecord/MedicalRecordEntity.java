@@ -2,6 +2,7 @@ package app.Api.MedicalRecord;
 
 import app.Api.Appointment.AppointmentEntity;
 import app.Api.Doctor.DoctorEntity;
+import app.Api.MedicalHistory.MedicalHistoryEntity;
 import app.Api.Patient.PatientEntity;
 import app.Base.JpaBaseEntity;
 import jakarta.persistence.*;
@@ -49,4 +50,8 @@ public class MedicalRecordEntity extends JpaBaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String notes;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "medical_history_id")
+    private MedicalHistoryEntity medicalHistory;
 }

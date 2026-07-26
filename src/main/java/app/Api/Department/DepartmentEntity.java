@@ -1,8 +1,11 @@
 package app.Api.Department;
 
+import app.Api.Doctor.DoctorEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.experimental.SuperBuilder;
 import app.Base.JpaBaseEntity;
 
@@ -15,4 +18,8 @@ import app.Base.JpaBaseEntity;
 @SuperBuilder
 public class DepartmentEntity extends JpaBaseEntity {
 
+    private String name;
+
+    @OneToMany(mappedBy = "department")
+    private List<DoctorEntity> doctorEntities;
 }

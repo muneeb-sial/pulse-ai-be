@@ -1,19 +1,18 @@
 package app.Api.Auth;
 
-import app.Api.Auth.Dtos.AuthLoginDto;
-import app.Api.Auth.Dtos.AuthRegisterDto;
+import app.Api.Auth.Dtos.*;
 import app.Configs.Security.UserPrincipal;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/auth")
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+    private final AuthService authService;
 
     @GetMapping("/me")
     Object getAuthenticatedUser(@AuthenticationPrincipal UserPrincipal user) {
@@ -36,13 +35,21 @@ public class AuthController {
     }
 
     @PostMapping("/forget-password")
-    Object forgetPassword(@RequestBody AuthLoginDto user) {
-        return "User Logged in";
+    Object forgetPassword(@RequestBody AuthForgetPasswordDto user) {
+        return this.authService.forgetPassword(user);
+    }
+
+    @PostMapping("/verify-email")
+    Object verifyEmail(@RequestBody AuthVerifyEmailDto user) {
+        return this.authService.verifyEmail(user);
     }
 
     @PostMapping("/reset-password")
-    Object resetPassword(@RequestBody AuthLoginDto user) {
-        return "User Logged in";
+    Object resetPassword(
+            @AuthenticationPrincipal UserPrincipal userPrincipal,
+            @RequestBody AuthResetPasswordDto userDto
+    ) {
+        return this.authService.resetPassword(userPrincipal.getUserId(),userDto);
     }
 
     @PostMapping("/login/google")

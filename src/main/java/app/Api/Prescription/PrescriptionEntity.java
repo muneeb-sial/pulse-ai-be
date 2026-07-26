@@ -9,6 +9,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(
@@ -57,4 +58,7 @@ public class PrescriptionEntity extends JpaBaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String notes;
+
+    @OneToMany(mappedBy = "prescription" )
+    private List<PrescriptionItemEntity> prescriptionItemEntities;
 }

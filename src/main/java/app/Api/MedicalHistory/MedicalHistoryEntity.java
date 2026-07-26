@@ -1,11 +1,14 @@
 package app.Api.MedicalHistory;
 
+import app.Api.MedicalRecord.MedicalRecordEntity;
 import app.Api.Patient.PatientEntity;
 import app.Base.JpaBaseEntity;
 import app.Shared.Enum.MedicalHistoryType;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Entity
 @Table(
@@ -36,4 +39,7 @@ public class MedicalHistoryEntity extends JpaBaseEntity {
 
     @Builder.Default
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "medicalHistory")
+    private List<MedicalRecordEntity> medicalRecord;
 }

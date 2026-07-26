@@ -1,9 +1,17 @@
 package app.Api.Doctor;
 
+import app.Api.Appointment.AppointmentEntity;
+import app.Api.Auth.UserEntity;
+import app.Api.Department.DepartmentEntity;
+import app.Api.MedicalHistory.MedicalHistoryEntity;
+import app.Api.MedicalRecord.MedicalRecordEntity;
+import app.Api.Prescription.PrescriptionEntity;
 import app.Base.JpaBaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 //
 //Doctor
 //├── DoctorSchedule
@@ -40,6 +48,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class DoctorEntity extends JpaBaseEntity {
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private DepartmentEntity department;
+
     @Column( nullable = false, length = 100)
     private String name;
 
@@ -54,9 +70,6 @@ public class DoctorEntity extends JpaBaseEntity {
 
     @Column(length = 100)
     private String qualification;
-
-    @Column(length = 100)
-    private String department;
 
     @Column(length = 255)
     private String address;
@@ -83,4 +96,13 @@ public class DoctorEntity extends JpaBaseEntity {
     @Column(nullable = false)
     @Builder.Default
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<MedicalRecordEntity> medicalRecordEntities;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<AppointmentEntity> appointmentEntities;
+
+    @OneToMany(mappedBy = "doctor")
+    private List<PrescriptionEntity> prescriptionEntities;
 }

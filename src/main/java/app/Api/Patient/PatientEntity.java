@@ -1,5 +1,10 @@
 package app.Api.Patient;
 
+import app.Api.Appointment.AppointmentEntity;
+import app.Api.Auth.UserEntity;
+import app.Api.MedicalHistory.MedicalHistoryEntity;
+import app.Api.MedicalRecord.MedicalRecordEntity;
+import app.Api.Prescription.PrescriptionEntity;
 import app.Base.JpaBaseEntity;
 import app.Shared.Enum.GenderEnum;
 import jakarta.persistence.*;
@@ -7,6 +12,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 //├── Appointment
@@ -49,6 +55,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @SuperBuilder
 public class PatientEntity extends JpaBaseEntity {
+
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    private UserEntity user;
 
     @Column(nullable = false, length = 200)
     private String name;
@@ -94,12 +104,21 @@ public class PatientEntity extends JpaBaseEntity {
     private String allergies;
 
     @Column(columnDefinition = "TEXT")
-    private String medicalHistory;
-
-    @Column(columnDefinition = "TEXT")
     private String notes;
 
     @Column(nullable = false)
     @Builder.Default
     private Boolean active = true;
+
+    @OneToMany(mappedBy = "patient")
+    private List<MedicalHistoryEntity> medicalHistoryEntities;
+
+    @OneToMany(mappedBy = "patient")
+    private List<MedicalRecordEntity> medicalRecordEntities;
+
+    @OneToMany(mappedBy = "patient")
+    private List<AppointmentEntity> appointmentEntities;
+
+    @OneToMany(mappedBy = "patient")
+    private List<PrescriptionEntity> prescriptionEntities;
 }

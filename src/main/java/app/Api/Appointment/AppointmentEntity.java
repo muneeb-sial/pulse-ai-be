@@ -2,6 +2,7 @@ package app.Api.Appointment;
 
 import app.Api.Doctor.DoctorEntity;
 import app.Api.Patient.PatientEntity;
+import app.Api.Prescription.PrescriptionEntity;
 import app.Base.JpaBaseEntity;
 import app.Shared.Enum.AppointmentStatus;
 import app.Shared.Enum.AppointmentType;
@@ -10,6 +11,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(
@@ -68,4 +70,7 @@ public class AppointmentEntity extends JpaBaseEntity {
     @Column(nullable = false)
     @Builder.Default
     private Boolean paid = false;
+
+    @OneToMany(mappedBy = "appointment")
+    private List<PrescriptionEntity> prescriptionEntityList;
 }

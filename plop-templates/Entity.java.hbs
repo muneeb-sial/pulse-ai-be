@@ -1,0 +1,17 @@
+package app.{{properCase name}};
+
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.LocalDateTime;
+import lombok.experimental.SuperBuilder;
+import app.Base.JpaBaseEntity;
+
+@Entity
+@Table(name = "{{snakeCase name}}")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public class {{properCase name}}Entity extends JpaBaseEntity {
+
+}

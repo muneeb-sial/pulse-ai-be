@@ -14,12 +14,10 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class UserEntity extends JpaBaseEntity {
 
-
-    private String name;
-
     @Column(
             unique = true,
-            nullable = false)
+            nullable = false
+    )
     private String email;
 
     private String password;

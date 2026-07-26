@@ -10,8 +10,17 @@ import app.Base.JpaBaseEntity;
 @Table(name = "medicine")
 @Data
 @NoArgsConstructor
-
 @SuperBuilder
 public class MedicineEntity extends JpaBaseEntity {
 
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    private String genericName;
+
+    private String manufacturer;
+
+    private String strength;
+
+    private String form;
 }

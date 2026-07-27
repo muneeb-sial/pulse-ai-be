@@ -69,11 +69,11 @@ public class PatientEntity extends JpaBaseEntity {
     @Column(unique = true, length = 30)
     private String idCard;
 
-    @Column(name = "date_of_birth", nullable = false)
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
+    @Column( length = 10)
     private GenderEnum gender;
 
     @Column(length = 255)

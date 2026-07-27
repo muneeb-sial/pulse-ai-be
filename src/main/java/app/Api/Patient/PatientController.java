@@ -1,19 +1,26 @@
 package app.Api.Patient;
 
+import app.Api.Patient.Dtos.PatientCreateDto;
+import app.Configs.Security.UserPrincipal;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 
 @RestController
 @RequestMapping("/patient")
+@RequiredArgsConstructor
 public class PatientController {
 
-    @Autowired
-    private PatientService service;
+    private final PatientService service;
 
     @PostMapping
-    public Object create(@RequestBody PatientEntity entity) {
-        return service.create(entity);
+    public Object create(
+            @RequestBody PatientCreateDto entity,
+            @AuthenticationPrincipal UserPrincipal user
+            ) {
+        return service.create(user.getUserId(),entity);
     }
 
     @GetMapping
@@ -27,7 +34,11 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public Object update(@PathVariable Long id, @RequestBody PatientEntity entity) {
+    public Object update(
+            @AuthenticationPrincipal UserPrincipal user,
+            @PathVariable Long id,
+            @RequestBody PatientEntity entity
+    ) {
         return service.update(id, entity);
     }
 

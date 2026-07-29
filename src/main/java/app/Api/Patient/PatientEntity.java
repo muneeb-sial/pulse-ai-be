@@ -29,7 +29,7 @@ import java.util.List;
 @Table(
         name = "patients",
         indexes = {
-                @Index(name = "idx_patient_name", columnList = "first_name,last_name"),
+                @Index(name = "idx_patient_name", columnList = "name"),
                 @Index(name = "idx_patient_dob", columnList = "date_of_birth")
         },
         uniqueConstraints = {

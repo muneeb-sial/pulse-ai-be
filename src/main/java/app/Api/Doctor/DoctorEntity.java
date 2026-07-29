@@ -29,7 +29,7 @@ import java.util.List;
                 @Index(name = "idx_doctor_phone", columnList = "phone"),
                 @Index(name = "idx_doctor_license", columnList = "license_number"),
                 @Index(name = "idx_doctor_specialization", columnList = "specialization"),
-                @Index(name = "idx_doctor_name", columnList = "first_name,last_name")
+                @Index(name = "idx_doctor_name", columnList = "name")
         },
         uniqueConstraints = {
                 @UniqueConstraint(

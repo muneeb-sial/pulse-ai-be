@@ -39,6 +39,14 @@ import java.util.List;
                 @UniqueConstraint(
                         name = "uk_doctor_license",
                         columnNames = "license_number"
+                ),
+                @UniqueConstraint(
+                        name = "uk_doctor_user_id",
+                        columnNames = "user_id"
+                ),
+                @UniqueConstraint(
+                        name = "uk_doctor_user_department_id",
+                        columnNames = "department_id"
                 )
         }
 )
@@ -49,20 +57,20 @@ import java.util.List;
 public class DoctorEntity extends JpaBaseEntity {
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "doctor_id")
+    @JoinColumn(name = "department_id")
     private DepartmentEntity department;
 
-    @Column( nullable = false, length = 100)
+    @Column(nullable = false, length = 100)
     private String name;
 
     @Column(nullable = false, unique = true, length = 20)
     private String phone;
 
-    @Column(name = "license_number", nullable = false, unique = true, length = 50)
+    @Column(name = "license_number", nullable = false, length = 50)
     private String licenseNumber;
 
     @Column(nullable = false, length = 100)

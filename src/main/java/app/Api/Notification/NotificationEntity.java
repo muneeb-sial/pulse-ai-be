@@ -8,7 +8,15 @@ import lombok.experimental.SuperBuilder;
 import app.Base.JpaBaseEntity;
 
 @Entity
-@Table(name = "notification")
+@Table(
+        name = "notification",
+        indexes = {
+                @Index(
+                        name = "idx_notification_user",
+                        columnList = "user_id"
+                )
+        }
+)
 @Data
 @NoArgsConstructor
 

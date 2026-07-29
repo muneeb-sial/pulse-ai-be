@@ -11,7 +11,13 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "prescription_items")
+@Table(
+        name = "prescription_items",
+        indexes = {
+                @Index(name = "idx_prescription", columnList = "prescription_id"),
+                @Index(name = "idx_medicine", columnList = "medicine_id")
+        }
+)
 public class PrescriptionItemEntity extends JpaBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

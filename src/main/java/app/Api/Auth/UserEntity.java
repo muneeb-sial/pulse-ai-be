@@ -1,8 +1,6 @@
 package app.Api.Auth;
 
-import app.Api.Doctor.DoctorEntity;
 import app.Api.Notification.NotificationEntity;
-import app.Api.Patient.PatientEntity;
 import app.Base.JpaBaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,17 +10,19 @@ import java.util.List;
 
 @Getter
 @Setter
-@Table(name = "users")
+@Table(
+        name = "users",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_user_email", columnNames = "email")
+        }
+)
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class UserEntity extends JpaBaseEntity {
 
-    @Column(
-            unique = true,
-            nullable = false
-    )
+    @Column(nullable = false)
     private String email;
 
     private String password;

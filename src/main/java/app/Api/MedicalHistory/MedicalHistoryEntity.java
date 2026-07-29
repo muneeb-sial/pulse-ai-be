@@ -14,7 +14,8 @@ import java.util.List;
 @Table(
         name = "medical_histories",
         indexes = {
-                @Index(name = "idx_history_patient", columnList = "patient_id")
+                @Index(name = "idx_history_patient", columnList = "patient_id"),
+                @Index(name = "idx_history_patient_history_type", columnList = "patient_id,type"),
         }
 )
 @Data

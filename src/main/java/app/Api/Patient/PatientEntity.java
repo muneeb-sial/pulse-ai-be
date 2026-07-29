@@ -29,9 +29,6 @@ import java.util.List;
 @Table(
         name = "patients",
         indexes = {
-                @Index(name = "idx_patient_email", columnList = "email"),
-                @Index(name = "idx_patient_phone", columnList = "phone"),
-                @Index(name = "idx_patient_cnic", columnList = "cnic"),
                 @Index(name = "idx_patient_name", columnList = "first_name,last_name"),
                 @Index(name = "idx_patient_dob", columnList = "date_of_birth")
         },
@@ -46,7 +43,11 @@ import java.util.List;
                 ),
                 @UniqueConstraint(
                         name = "uk_patient_cnic",
-                        columnNames = "cnic"
+                        columnNames = "idCard"
+                ),
+                @UniqueConstraint(
+                        name = "uk_patient_user_id",
+                        columnNames = "user_id"
                 )
         }
 )
@@ -57,13 +58,13 @@ import java.util.List;
 public class PatientEntity extends JpaBaseEntity {
 
     @OneToOne
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @Column(nullable = false, length = 200)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 20)
+    @Column(nullable = false, length = 20)
     private String phone;
 
     @Column(unique = true, length = 30)
@@ -73,7 +74,7 @@ public class PatientEntity extends JpaBaseEntity {
     private LocalDate dateOfBirth;
 
     @Enumerated(EnumType.STRING)
-    @Column( length = 10)
+    @Column(length = 10)
     private GenderEnum gender;
 
     @Column(length = 255)

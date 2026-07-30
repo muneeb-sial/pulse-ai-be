@@ -33,4 +33,9 @@ public class AppointmentService {
         repository.deleteById(id);
         return "Deleted ID " + id;
     }
+
+    public void findByUserId(){}
+    public void findByDoctorId(){}
+    public void cancelAppointmentId(){}
+    public void rescheduleAppointmentId(){}
 }

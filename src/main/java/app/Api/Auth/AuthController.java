@@ -1,6 +1,9 @@
 package app.Api.Auth;
 
 import app.Api.Auth.Dtos.*;
+import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkRequestDto;
+import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkVerifyDto;
+import app.Api.Auth.MagicLink.MagicLinkService;
 import app.Configs.Security.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+    private final MagicLinkService magicLinkService;
 
     @GetMapping("/me")
     Object getAuthenticatedUser(@AuthenticationPrincipal UserPrincipal user) {
@@ -55,6 +59,16 @@ public class AuthController {
     @PostMapping("/login/google")
     Object googleAuthCodeAuthentication(@RequestBody AuthLoginDto user) {
         return "User Logged in";
+    }
+
+    @PostMapping("/magic-link")
+    Object requestMagicLink(@Valid @RequestBody AuthMagicLinkRequestDto user) {
+        return this.magicLinkService.requestMagicLink(user);
+    }
+
+    @PostMapping("/magic-link/verify")
+    Object verifyMagicLink(@Valid @RequestBody AuthMagicLinkVerifyDto user) {
+        return this.magicLinkService.verifyMagicLink(user);
     }
 
 

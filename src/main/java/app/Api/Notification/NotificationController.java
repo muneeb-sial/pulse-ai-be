@@ -1,38 +1,32 @@
 package app.Api.Notification;
 
+import app.Configs.Security.UserPrincipal;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.*;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/notification")
+@RequiredArgsConstructor
 public class NotificationController {
 
-    @Autowired
-    private NotificationService service;
-
-    @PostMapping
-    public Object create(@RequestBody NotificationEntity entity) {
-        return service.create(entity);
-    }
+    private final NotificationService service;
 
     @GetMapping
-    public Object getAll() {
-        return service.getAll();
+    public Object getAll(@AuthenticationPrincipal UserPrincipal user, Pageable pageable) {
+        return service.getAllForUser(user.getUserId(), pageable);
     }
 
-    @GetMapping("/s/{id}")
-    public Object getById(@PathVariable Long id) {
-        return service.getById(id);
+    @GetMapping("/unread-count")
+    public Object getUnreadCount(@AuthenticationPrincipal UserPrincipal user) {
+        return Map.of("count", service.getUnreadCount(user.getUserId()));
     }
 
-    @PutMapping("/{id}")
-    public Object update(@PathVariable Long id, @RequestBody NotificationEntity entity) {
-        return service.update(id, entity);
-    }
-
-    @DeleteMapping("/{id}")
-    public Object delete(@PathVariable Long id) {
-        return service.delete(id);
+    @PatchMapping("/{id}/read")
+    public Object markAsRead(@AuthenticationPrincipal UserPrincipal user, @PathVariable Long id) {
+        return service.markAsRead(user.getUserId(), id);
     }
 }

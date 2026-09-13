@@ -1,36 +1,32 @@
 package app.Api.Notification;
 
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.*;
+
+import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class NotificationService {
 
-    @Autowired
-    private NotificationRepository repository;
+    private final NotificationRepository repository;
 
-    public Object create(NotificationEntity entity) {
-        return repository.save(entity);
+    public Page<NotificationEntity> getAllForUser(Long userId, Pageable pageable) {
+        return repository.findAllByUser_Id(userId, pageable);
     }
 
-    public Object getAll() {
-        return repository.findAll();
+    public long getUnreadCount(Long userId) {
+        return repository.countByUser_IdAndReadFalse(userId);
     }
 
-    public Object getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    public Object update(Long id, NotificationEntity newEntity) {
-        return repository.findById(id).map(existing -> {
-            newEntity.setId(id);
-            return repository.save(newEntity);
-        }).orElse(null);
-    }
-
-    public Object delete(Long id) {
-        repository.deleteById(id);
-        return "Deleted ID " + id;
+    public Object markAsRead(Long userId, Long id) {
+        var notification = repository.findByIdAndUser_Id(id, userId)
+                .orElseThrow(() -> new EntityNotFoundException("Notification not found"));
+        notification.setRead(true);
+        repository.save(notification);
+        return Map.of("message", "notification marked as read");
     }
 }

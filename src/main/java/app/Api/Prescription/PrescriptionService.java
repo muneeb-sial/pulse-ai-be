@@ -1,5 +1,7 @@
 package app.Api.Prescription;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
@@ -14,8 +16,8 @@ public class PrescriptionService {
         return repository.save(entity);
     }
 
-    public Object getAll() {
-        return repository.findAll();
+    public Page<PrescriptionEntity> getAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     public Object getById(Long id) {

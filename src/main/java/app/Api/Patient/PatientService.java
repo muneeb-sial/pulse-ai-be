@@ -7,7 +7,6 @@ import app.Api.Patient.Dtos.PatientUpdateDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,8 +28,7 @@ public class PatientService {
         return repository.save(patient);
     }
 
-    public Page<PatientEntity> getAll(int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
+    public Page<PatientEntity> getAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 

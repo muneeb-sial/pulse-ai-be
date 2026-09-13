@@ -1,5 +1,6 @@
 package app.Api.Search;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
@@ -17,8 +18,8 @@ public class SearchController {
     }
 
     @GetMapping
-    public Object getAll() {
-        return service.getAll();
+    public Object getAll(Pageable pageable) {
+        return service.getAll(pageable);
     }
 
     @GetMapping("/s/{id}")

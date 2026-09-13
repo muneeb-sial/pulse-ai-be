@@ -4,6 +4,7 @@ import app.Api.Patient.Dtos.PatientCreateDto;
 import app.Api.Patient.Dtos.PatientUpdateDto;
 import app.Configs.Security.UserPrincipal;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class PatientController {
     }
 
     @GetMapping
-    public Object getAll(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "20") int size) {
-        return service.getAll(page, size);
+    public Object getAll(Pageable pageable) {
+        return service.getAll(pageable);
     }
 
     @GetMapping("/s/{id}")

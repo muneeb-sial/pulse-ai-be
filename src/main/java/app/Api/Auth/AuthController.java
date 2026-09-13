@@ -7,6 +7,7 @@ import app.Api.Auth.MagicLink.MagicLinkService;
 import app.Configs.Security.UserPrincipal;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class AuthController {
     }
 
     @GetMapping("/all")
+    @PreAuthorize("hasRole('ADMIN')")
     Object getAllUser() {
         return this.authService.getAllUsers();
     }

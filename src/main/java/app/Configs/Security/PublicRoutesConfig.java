@@ -3,10 +3,10 @@ package app.Configs.Security;
 import java.util.List;
 
 public class PublicRoutesConfig {
-    public static List<String> routes =List.of(
+    public static List<String> routes = List.of(
             "/auth/**",
-            "/home",
+            "/health",
             "/swagger-ui/**",
-            "/**"
+            "/v3/api-docs/**"
     );
 }

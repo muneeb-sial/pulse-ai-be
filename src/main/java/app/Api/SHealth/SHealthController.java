@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/health")
 public class SHealthController {
 
     @GetMapping

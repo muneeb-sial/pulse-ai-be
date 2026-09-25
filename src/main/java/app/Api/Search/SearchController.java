@@ -1,39 +1,38 @@
 package app.Api.Search;
 
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/search")
+@RequiredArgsConstructor
 public class SearchController {
 
-    @Autowired
-    private SearchService service;
-
-    @PostMapping
-    public Object create(@RequestBody SearchEntity entity) {
-        return service.create(entity);
-    }
+    private final SearchService service;
+    private final SearchIndexer indexer;
 
     @GetMapping
-    public Object getAll(Pageable pageable) {
-        return service.getAll(pageable);
+    public List<SearchService.Hit> search(
+            @RequestParam String q,
+            @RequestParam(required = false) String type,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Authentication auth) {
+        boolean isAdmin = auth
+                            .getAuthorities()
+                            .stream()
+                            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        return service.search(q, type, isAdmin, page, Math.min(size, 100));
     }
 
-    @GetMapping("/s/{id}")
-    public Object getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-    @PutMapping("/{id}")
-    public Object update(@PathVariable Long id, @RequestBody SearchEntity entity) {
-        return service.update(id, entity);
-    }
-
-    @DeleteMapping("/{id}")
-    public Object delete(@PathVariable Long id) {
-        return service.delete(id);
+    @PostMapping("/reindex")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Map<String, Integer> reindex() {
+        return indexer.reindexAll();
     }
 }

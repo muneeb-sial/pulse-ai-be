@@ -1,38 +1,77 @@
 package app.Api.Search;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.client.elc.NativeQuery;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.*;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Stream;
 
 @Service
+@RequiredArgsConstructor
 public class SearchService {
 
-    @Autowired
-    private SearchRepository repository;
+    /** Searchable index aliases. Public = any authenticated caller, the rest need ADMIN (see CLAUDE.md role gap). */
+    static final Set<String> OPEN_TYPES = Set.of("doctors", "departments", "medicines");
+    static final Set<String> RESTRICTED_TYPES = Set.of(
+            "patients", "appointments", "medical_histories", "medical_records", "prescriptions");
 
-    public Object create(SearchEntity entity) {
-        return repository.save(entity);
+    private static final String[] TEXT_FIELDS = {
+            "name", "name._2gram", "name._3gram", "genericName", "manufacturer", "specialization",
+            "qualification", "biography", "departmentName", "patientName", "doctorName",
+            "title", "diagnosis", "medicineNames", "city"
+    };
+
+    private final ElasticsearchOperations es;
+
+    public record Hit(String type, Long id, String title, float score) {}
+
+    public List<Hit> search(String q, String type, boolean isAdmin, int page, int size) {
+        List<String> types = resolveTypes(type, isAdmin);
+
+        NativeQuery query = NativeQuery.builder()
+                .withQuery(b -> b.multiMatch(m -> m
+                        .query(q)
+                        .fields(List.of(TEXT_FIELDS))
+                        .fuzziness("AUTO")))
+                .withPageable(PageRequest.of(page, size))
+                .build();
+
+        return es.search(query, Map.class, IndexCoordinates.of(types.toArray(String[]::new)))
+                .getSearchHits().stream()
+                .map(this::toHit)
+                .toList();
     }
 
-    public Page<SearchEntity> getAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    private List<String> resolveTypes(String type, boolean isAdmin) {
+        if (type == null || type.isBlank()) {
+            return isAdmin
+                    ? Stream.concat(OPEN_TYPES.stream(), RESTRICTED_TYPES.stream()).toList()
+                    : List.copyOf(OPEN_TYPES);
+        }
+        if (OPEN_TYPES.contains(type) || (isAdmin && RESTRICTED_TYPES.contains(type))) {
+            return List.of(type);
+        }
+        if (RESTRICTED_TYPES.contains(type)) {
+            throw new org.springframework.security.access.AccessDeniedException("Not allowed to search " + type);
+        }
+        throw new IllegalArgumentException("Unknown search type: " + type);
     }
 
-    public Object getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    public Object update(Long id, SearchEntity newEntity) {
-        return repository.findById(id).map(existing -> {
-            newEntity.setId(id);
-            return repository.save(newEntity);
-        }).orElse(null);
-    }
-
-    public Object delete(Long id) {
-        repository.deleteById(id);
-        return "Deleted ID " + id;
+    @SuppressWarnings("unchecked")
+    private Hit toHit(SearchHit<Map> hit) {
+        Map<String, Object> src = hit.getContent();
+        String index = hit.getIndex() == null ? "" : hit.getIndex();
+        String type = index.contains("_v") ? index.substring(0, index.lastIndexOf("_v")) : index;
+        Object title = src.getOrDefault("name", src.getOrDefault("title", src.get("diagnosis")));
+        Object id = src.get("id");
+        return new Hit(type, id == null ? null : Long.valueOf(id.toString()),
+                title == null ? null : title.toString(), hit.getScore());
     }
 }

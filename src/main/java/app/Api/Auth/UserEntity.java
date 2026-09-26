@@ -1,5 +1,7 @@
 package app.Api.Auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import app.Api.Notification.NotificationEntity;
@@ -27,8 +29,15 @@ public class UserEntity extends JpaBaseEntity {
     @Column(nullable = false)
     private String email;
 
+    /**
+     * WRITE_ONLY, never serialized: UserEntity is embedded in patient and doctor
+     * responses (and returned wholesale by GET /auth/all), so without this every
+     * authenticated caller received bcrypt hashes for every user.
+     */
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String otpToken;
 
     @Builder.Default

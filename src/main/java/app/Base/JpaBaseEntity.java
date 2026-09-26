@@ -1,6 +1,7 @@
 package app.Base;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +19,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
+// A lazily-loaded association serializes as a Hibernate proxy, which leaked
+// "hibernateLazyInitializer" and "handler" keys into responses (visible on
+// prescription.appointment). Declared here so every entity inherits it.
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class JpaBaseEntity {
 
     @Id

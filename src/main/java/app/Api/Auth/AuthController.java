@@ -1,5 +1,11 @@
 package app.Api.Auth;
 
+import java.util.Map;
+
+import org.springframework.web.server.ResponseStatusException;
+
+import org.springframework.http.HttpStatus;
+
 import app.Api.Auth.Dtos.*;
 import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkRequestDto;
 import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkVerifyDto;
@@ -21,7 +27,16 @@ public class AuthController {
 
     @GetMapping("/me")
     Object getAuthenticatedUser(@AuthenticationPrincipal UserPrincipal user) {
-        return user;
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+        }
+        // Returned explicitly rather than serializing UserPrincipal: Jackson found no
+        // properties on it and the endpoint answered 200 with an empty body.
+        return Map.of(
+                "userId", user.getUserId(),
+                "email", user.getEmail(),
+                "role", user.getRole()
+        );
     }
 
     @GetMapping("/all")

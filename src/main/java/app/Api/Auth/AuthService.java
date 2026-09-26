@@ -55,13 +55,9 @@ public class AuthService {
     }
 
     public List<UserEntity> getAllUsers() {
-        return this.userDb.findAll(
-                (root, query, cb) ->
-                        cb.and(
-                                cb.equal(root.get("email"), "string"),
-                                cb.equal(root.get("password"), "string")
-                        )
-        );
+        // Previously filtered on email = "string" AND password = "string", which was
+        // leftover scaffolding and always returned an empty list.
+        return this.userDb.findAll();
     }
 
     public Object forgetPassword(AuthForgetPasswordDto userDto) {

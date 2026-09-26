@@ -1,5 +1,7 @@
 package app.Api.Patient;
 
+import jakarta.validation.Valid;
+
 import app.Api.Patient.Dtos.PatientCreateDto;
 import app.Api.Patient.Dtos.PatientUpdateDto;
 import app.Configs.Security.UserPrincipal;
@@ -19,7 +21,7 @@ public class PatientController {
     private final PatientService service;
 
     @PostMapping
-    public Object create(@RequestBody PatientCreateDto entity, @AuthenticationPrincipal UserPrincipal user) {
+    public Object create(@Valid @RequestBody PatientCreateDto entity, @AuthenticationPrincipal UserPrincipal user) {
         return service.create(user.getUserId(), entity);
     }
 

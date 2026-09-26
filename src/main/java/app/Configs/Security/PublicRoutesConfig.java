@@ -3,8 +3,22 @@ package app.Configs.Security;
 import java.util.List;
 
 public class PublicRoutesConfig {
+    /**
+     * Endpoints reachable without a bearer token.
+     *
+     * Listed individually rather than as "/auth/**": that wildcard also exempted the
+     * endpoints that read the caller via @AuthenticationPrincipal, so JwtFilter skipped
+     * them, never populated the SecurityContext, and the principal arrived null -
+     * /auth/me answered 200 with an empty body and /auth/reset-password would NPE.
+     */
     public static List<String> routes = List.of(
-            "/auth/**",
+            "/auth/login",
+            "/auth/login/google",
+            "/auth/register",
+            "/auth/forget-password",
+            "/auth/verify-email",
+            "/auth/magic-link",
+            "/auth/magic-link/verify",
             "/health",
             "/swagger-ui/**",
             "/v3/api-docs/**"

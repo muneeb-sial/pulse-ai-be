@@ -28,7 +28,8 @@ public class AppointmentService {
     }
 
     public Object getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found with id " + id));
     }
 
     public Page<AppointmentEntity> findByPatientId(Long patientId, Pageable pageable) {
@@ -43,7 +44,7 @@ public class AppointmentService {
         return repository.findById(id).map(existing -> {
             newEntity.setId(id);
             return repository.save(newEntity);
-        }).orElse(null);
+        }).orElseThrow(() -> new EntityNotFoundException("Appointment not found with id " + id));
     }
 
     public Object updateStatus(Long id, AppointmentStatus status) {
@@ -68,6 +69,9 @@ public class AppointmentService {
     }
 
     public Object delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new EntityNotFoundException("Appointment not found with id " + id);
+        }
         repository.deleteById(id);
         return "Deleted ID " + id;
     }

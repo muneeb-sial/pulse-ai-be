@@ -43,10 +43,6 @@ import java.util.List;
                 @UniqueConstraint(
                         name = "uk_doctor_user_id",
                         columnNames = "user_id"
-                ),
-                @UniqueConstraint(
-                        name = "uk_doctor_user_department_id",
-                        columnNames = "department_id"
                 )
         }
 )

@@ -1,5 +1,7 @@
 package app.Api.Prescription;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.Api.Medicine.MedicineEntity;
 import app.Base.JpaBaseEntity;
 import jakarta.persistence.*;
@@ -20,6 +22,7 @@ import lombok.experimental.SuperBuilder;
 )
 public class PrescriptionItemEntity extends JpaBaseEntity {
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prescription_id", nullable = false)
     private PrescriptionEntity prescription;

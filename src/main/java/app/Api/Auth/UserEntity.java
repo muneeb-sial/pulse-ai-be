@@ -1,5 +1,7 @@
 package app.Api.Auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.Api.Notification.NotificationEntity;
 import app.Base.JpaBaseEntity;
 import jakarta.persistence.*;
@@ -39,6 +41,7 @@ public class UserEntity extends JpaBaseEntity {
     @Builder.Default
     private String role = "USER";
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<NotificationEntity> notificationEntities;
 

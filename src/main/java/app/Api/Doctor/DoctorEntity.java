@@ -1,5 +1,7 @@
 package app.Api.Doctor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.Api.Appointment.AppointmentEntity;
 import app.Api.Auth.UserEntity;
 import app.Api.Department.DepartmentEntity;
@@ -101,12 +103,15 @@ public class DoctorEntity extends JpaBaseEntity {
     @Builder.Default
     private Boolean active = true;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
     private List<MedicalRecordEntity> medicalRecordEntities;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
     private List<AppointmentEntity> appointmentEntities;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "doctor")
     private List<PrescriptionEntity> prescriptionEntities;
 }

@@ -1,5 +1,7 @@
 package app.Api.Department;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.Api.Doctor.DoctorEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,6 +22,7 @@ public class DepartmentEntity extends JpaBaseEntity {
 
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "department")
     private List<DoctorEntity> doctorEntities;
 }

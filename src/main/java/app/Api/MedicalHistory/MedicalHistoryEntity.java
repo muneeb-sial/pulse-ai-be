@@ -1,5 +1,7 @@
 package app.Api.MedicalHistory;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import app.Api.MedicalRecord.MedicalRecordEntity;
 import app.Api.Patient.PatientEntity;
 import app.Base.JpaBaseEntity;
@@ -41,6 +43,7 @@ public class MedicalHistoryEntity extends JpaBaseEntity {
     @Builder.Default
     private Boolean active = true;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "medicalHistory")
     private List<MedicalRecordEntity> medicalRecord;
 }

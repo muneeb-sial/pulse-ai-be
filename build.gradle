@@ -43,6 +43,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-cache")
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+	implementation 'org.springframework.boot:spring-boot-starter-kafka'
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
 	implementation 'net.datafaker:datafaker:2.4.4'

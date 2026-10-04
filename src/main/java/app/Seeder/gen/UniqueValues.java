@@ -1,4 +1,4 @@
-package app.Seeder.gen;
+package app.seeder.gen;
 
 /** Deterministic, collision-free phone / id-card / licence strings derived from a running index. */
 public final class UniqueValues {

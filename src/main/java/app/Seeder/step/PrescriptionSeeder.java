@@ -1,13 +1,13 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Appointment.AppointmentEntity;
-import app.Api.Medicine.MedicineEntity;
-import app.Api.Prescription.PrescriptionEntity;
-import app.Api.Prescription.PrescriptionItemEntity;
-import app.Api.Prescription.PrescriptionItemRepository;
-import app.Api.Prescription.PrescriptionRepository;
-import app.Seeder.gen.SeedData;
-import app.Shared.Enum.AppointmentStatus;
+import app.seeder.gen.SeedData;
+import app.shared.enums.AppointmentStatus;
+import app.api.appointment.AppointmentEntity;
+import app.api.medicine.MedicineEntity;
+import app.api.prescription.PrescriptionEntity;
+import app.api.prescription.PrescriptionItemEntity;
+import app.api.prescription.PrescriptionItemRepository;
+import app.api.prescription.PrescriptionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

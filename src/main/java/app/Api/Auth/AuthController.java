@@ -1,4 +1,4 @@
-package app.Api.Auth;
+package app.api.auth;
 
 import java.util.Map;
 
@@ -6,11 +6,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import org.springframework.http.HttpStatus;
 
-import app.Api.Auth.Dtos.*;
-import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkRequestDto;
-import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkVerifyDto;
-import app.Api.Auth.MagicLink.MagicLinkService;
-import app.Configs.Security.UserPrincipal;
+import app.configs.security.UserPrincipal;
+import app.api.auth.dtos.*;
+import app.api.auth.magiclink.MagicLinkService;
+import app.api.auth.magiclink.dtos.AuthMagicLinkRequestDto;
+import app.api.auth.magiclink.dtos.AuthMagicLinkVerifyDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

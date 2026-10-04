@@ -1,4 +1,4 @@
-package app.Api.Search;
+package app.api.search;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

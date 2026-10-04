@@ -1,11 +1,11 @@
-package app.Api.Auth;
+package app.api.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import app.Api.Notification.NotificationEntity;
-import app.Base.JpaBaseEntity;
+import app.base.JpaBaseEntity;
+import app.api.notification.NotificationEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

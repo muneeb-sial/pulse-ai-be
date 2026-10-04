@@ -1,9 +1,9 @@
-package app.Api.Auth;
+package app.api.auth;
 
-import app.Api.Auth.Dtos.*;
-import app.Configs.Security.Jwt.JwtDto;
-import app.Configs.Security.Jwt.JwtService;
-import app.Configs.Security.OtpGenerator;
+import app.configs.security.jwt.JwtDto;
+import app.configs.security.jwt.JwtService;
+import app.api.auth.dtos.*;
+import app.configs.security.OtpGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,10 @@
-package app.Seeder;
+package app.seeder;
 
-import app.Api.Auth.AuthRepository;
-import app.Api.Search.SearchIndexer;
-import app.Seeder.step.SeedContext;
-import app.Seeder.step.SeedStep;
-import app.Seeder.step.UserSeeder;
+import app.seeder.step.SeedContext;
+import app.seeder.step.SeedStep;
+import app.seeder.step.UserSeeder;
+import app.api.auth.AuthRepository;
+import app.api.search.SearchIndexer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;

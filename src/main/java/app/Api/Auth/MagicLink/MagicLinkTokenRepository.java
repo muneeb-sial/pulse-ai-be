@@ -1,4 +1,4 @@
-package app.Api.Auth.MagicLink;
+package app.api.auth.magiclink;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

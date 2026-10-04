@@ -1,10 +1,10 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Patient.PatientEntity;
-import app.Api.Patient.PatientRepository;
-import app.Seeder.gen.SeedData;
-import app.Seeder.gen.UniqueValues;
-import app.Shared.Enum.GenderEnum;
+import app.seeder.gen.SeedData;
+import app.seeder.gen.UniqueValues;
+import app.shared.enums.GenderEnum;
+import app.api.patient.PatientEntity;
+import app.api.patient.PatientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static app.Seeder.gen.UniqueValues.cut;
+import static app.seeder.gen.UniqueValues.cut;
 
 @Component
 @Order(50)

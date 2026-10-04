@@ -1,12 +1,12 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Appointment.AppointmentEntity;
-import app.Api.Appointment.AppointmentRepository;
-import app.Api.Doctor.DoctorEntity;
-import app.Api.Patient.PatientEntity;
-import app.Seeder.gen.SeedData;
-import app.Shared.Enum.AppointmentStatus;
-import app.Shared.Enum.AppointmentType;
+import app.seeder.gen.SeedData;
+import app.shared.enums.AppointmentStatus;
+import app.shared.enums.AppointmentType;
+import app.api.appointment.AppointmentEntity;
+import app.api.appointment.AppointmentRepository;
+import app.api.doctor.DoctorEntity;
+import app.api.patient.PatientEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;

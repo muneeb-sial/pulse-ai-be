@@ -1,8 +1,8 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Medicine.MedicineEntity;
-import app.Api.Medicine.MedicineRepository;
-import app.Seeder.gen.SeedData;
+import app.seeder.gen.SeedData;
+import app.api.medicine.MedicineEntity;
+import app.api.medicine.MedicineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

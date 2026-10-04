@@ -1,11 +1,11 @@
-package app.Api.Auth.MagicLink;
+package app.api.auth.magiclink;
 
-import app.Api.Auth.AuthRepository;
-import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkRequestDto;
-import app.Api.Auth.MagicLink.Dtos.AuthMagicLinkVerifyDto;
-import app.Api.Auth.UserEntity;
-import app.Configs.Security.Jwt.JwtDto;
-import app.Configs.Security.Jwt.JwtService;
+import app.configs.security.jwt.JwtDto;
+import app.configs.security.jwt.JwtService;
+import app.api.auth.AuthRepository;
+import app.api.auth.UserEntity;
+import app.api.auth.magiclink.dtos.AuthMagicLinkRequestDto;
+import app.api.auth.magiclink.dtos.AuthMagicLinkVerifyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

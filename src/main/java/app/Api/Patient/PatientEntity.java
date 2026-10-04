@@ -1,14 +1,14 @@
-package app.Api.Patient;
+package app.api.patient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import app.Api.Appointment.AppointmentEntity;
-import app.Api.Auth.UserEntity;
-import app.Api.MedicalHistory.MedicalHistoryEntity;
-import app.Api.MedicalRecord.MedicalRecordEntity;
-import app.Api.Prescription.PrescriptionEntity;
-import app.Base.JpaBaseEntity;
-import app.Shared.Enum.GenderEnum;
+import app.base.JpaBaseEntity;
+import app.shared.enums.GenderEnum;
+import app.api.appointment.AppointmentEntity;
+import app.api.auth.UserEntity;
+import app.api.medicalhistory.MedicalHistoryEntity;
+import app.api.medicalrecord.MedicalRecordEntity;
+import app.api.prescription.PrescriptionEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

@@ -1,8 +1,8 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Auth.AuthRepository;
-import app.Api.Auth.UserEntity;
-import app.Shared.Enum.Role;
+import app.shared.enums.Role;
+import app.api.auth.AuthRepository;
+import app.api.auth.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
-package app.Api.Auth.MagicLink;
+package app.api.auth.magiclink;
 
-import app.Api.Auth.UserEntity;
-import app.Base.JpaBaseEntity;
+import app.base.JpaBaseEntity;
+import app.api.auth.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

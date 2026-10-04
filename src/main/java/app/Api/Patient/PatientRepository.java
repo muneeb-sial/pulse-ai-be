@@ -1,4 +1,4 @@
-package app.Api.Patient;
+package app.api.patient;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package app.Seeder.gen;
+package app.seeder.gen;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package app.Seeder.gen;
+package app.seeder.gen;
 
 import java.util.ArrayList;
 import java.util.Collections;

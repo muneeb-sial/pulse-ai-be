@@ -1,10 +1,10 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.MedicalHistory.MedicalHistoryEntity;
-import app.Api.MedicalHistory.MedicalHistoryRepository;
-import app.Api.Patient.PatientEntity;
-import app.Seeder.gen.SeedData;
-import app.Shared.Enum.MedicalHistoryType;
+import app.seeder.gen.SeedData;
+import app.shared.enums.MedicalHistoryType;
+import app.api.medicalhistory.MedicalHistoryEntity;
+import app.api.medicalhistory.MedicalHistoryRepository;
+import app.api.patient.PatientEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

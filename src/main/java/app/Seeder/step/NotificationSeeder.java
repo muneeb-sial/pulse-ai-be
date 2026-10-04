@@ -1,9 +1,9 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Auth.UserEntity;
-import app.Api.Notification.NotificationEntity;
-import app.Api.Notification.NotificationRepository;
-import app.Seeder.gen.SeedData;
+import app.seeder.gen.SeedData;
+import app.api.auth.UserEntity;
+import app.api.notification.NotificationEntity;
+import app.api.notification.NotificationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

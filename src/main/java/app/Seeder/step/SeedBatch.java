@@ -1,4 +1,4 @@
-package app.Seeder.step;
+package app.seeder.step;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

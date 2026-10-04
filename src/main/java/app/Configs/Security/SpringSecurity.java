@@ -1,6 +1,6 @@
-package app.Configs.Security;
+package app.configs.security;
 
-import app.Configs.Security.Jwt.JwtFilter;
+import app.configs.security.jwt.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

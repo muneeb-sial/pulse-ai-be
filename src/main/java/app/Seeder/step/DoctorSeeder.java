@@ -1,10 +1,10 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Department.DepartmentEntity;
-import app.Api.Doctor.DoctorEntity;
-import app.Api.Doctor.DoctorRepository;
-import app.Seeder.gen.SeedData;
-import app.Seeder.gen.UniqueValues;
+import app.seeder.gen.SeedData;
+import app.seeder.gen.UniqueValues;
+import app.api.department.DepartmentEntity;
+import app.api.doctor.DoctorEntity;
+import app.api.doctor.DoctorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-import static app.Seeder.gen.UniqueValues.cut;
+import static app.seeder.gen.UniqueValues.cut;
 
 @Component
 @Order(40)

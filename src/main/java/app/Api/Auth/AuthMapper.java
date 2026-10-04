@@ -1,7 +1,8 @@
-package app.Api.Auth;
+package app.api.auth;
 
-import app.Api.Auth.Dtos.AuthRegisterDto;
 import org.mapstruct.Mapper;
+
+import app.api.auth.dtos.AuthRegisterDto;
 
 @Mapper(componentModel = "spring")
 public interface AuthMapper {

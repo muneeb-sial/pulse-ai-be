@@ -1,14 +1,14 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Appointment.AppointmentEntity;
-import app.Api.Auth.UserEntity;
-import app.Api.Department.DepartmentEntity;
-import app.Api.Doctor.DoctorEntity;
-import app.Api.MedicalHistory.MedicalHistoryEntity;
-import app.Api.Medicine.MedicineEntity;
-import app.Api.Patient.PatientEntity;
-import app.Seeder.SeederProperties;
-import app.Seeder.gen.TextGenerator;
+import app.seeder.SeederProperties;
+import app.seeder.gen.TextGenerator;
+import app.api.appointment.AppointmentEntity;
+import app.api.auth.UserEntity;
+import app.api.department.DepartmentEntity;
+import app.api.doctor.DoctorEntity;
+import app.api.medicalhistory.MedicalHistoryEntity;
+import app.api.medicine.MedicineEntity;
+import app.api.patient.PatientEntity;
 import lombok.Getter;
 import net.datafaker.Faker;
 

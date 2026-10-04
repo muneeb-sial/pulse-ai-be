@@ -1,6 +1,6 @@
-package app.Seeder.gen;
+package app.seeder.gen;
 
-import app.Shared.Enum.MedicalHistoryType;
+import app.shared.enums.MedicalHistoryType;
 
 import java.util.List;
 import java.util.Map;

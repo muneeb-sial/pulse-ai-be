@@ -1,10 +1,10 @@
-package app.Api.Patient;
+package app.api.patient;
 
-import app.Api.Auth.AuthRepository;
-import app.Api.Auth.UserEntity;
-import app.Api.Patient.Dtos.PatientCreateDto;
-import app.Api.Patient.Dtos.PatientUpdateDto;
-import app.Shared.Enum.Role;
+import app.shared.enums.Role;
+import app.api.auth.AuthRepository;
+import app.api.auth.UserEntity;
+import app.api.patient.dtos.PatientCreateDto;
+import app.api.patient.dtos.PatientUpdateDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

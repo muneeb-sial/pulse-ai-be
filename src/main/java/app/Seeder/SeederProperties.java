@@ -1,4 +1,4 @@
-package app.Seeder;
+package app.seeder;
 
 import lombok.Getter;
 import lombok.Setter;

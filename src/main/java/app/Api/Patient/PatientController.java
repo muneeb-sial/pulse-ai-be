@@ -1,10 +1,9 @@
-package app.Api.Patient;
+package app.api.patient;
 
 import jakarta.validation.Valid;
-
-import app.Api.Patient.Dtos.PatientCreateDto;
-import app.Api.Patient.Dtos.PatientUpdateDto;
-import app.Configs.Security.UserPrincipal;
+import app.configs.security.UserPrincipal;
+import app.api.patient.dtos.PatientCreateDto;
+import app.api.patient.dtos.PatientUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

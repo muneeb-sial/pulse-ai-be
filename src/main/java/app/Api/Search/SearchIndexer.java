@@ -1,14 +1,5 @@
-package app.Api.Search;
+package app.api.search;
 
-import app.Api.Appointment.AppointmentRepository;
-import app.Api.Department.DepartmentRepository;
-import app.Api.Doctor.DoctorRepository;
-import app.Api.MedicalHistory.MedicalHistoryRepository;
-import app.Api.MedicalRecord.MedicalRecordRepository;
-import app.Api.Medicine.MedicineRepository;
-import app.Api.Patient.PatientRepository;
-import app.Api.Prescription.PrescriptionRepository;
-import app.Api.Search.Documents.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +12,16 @@ import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import app.api.appointment.AppointmentRepository;
+import app.api.department.DepartmentRepository;
+import app.api.doctor.DoctorRepository;
+import app.api.medicalhistory.MedicalHistoryRepository;
+import app.api.medicalrecord.MedicalRecordRepository;
+import app.api.medicine.MedicineRepository;
+import app.api.patient.PatientRepository;
+import app.api.prescription.PrescriptionRepository;
+import app.api.search.documents.*;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

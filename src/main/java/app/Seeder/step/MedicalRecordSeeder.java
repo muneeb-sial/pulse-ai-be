@@ -1,10 +1,10 @@
-package app.Seeder.step;
+package app.seeder.step;
 
-import app.Api.Appointment.AppointmentEntity;
-import app.Api.MedicalHistory.MedicalHistoryEntity;
-import app.Api.MedicalRecord.MedicalRecordEntity;
-import app.Api.MedicalRecord.MedicalRecordRepository;
-import app.Shared.Enum.AppointmentStatus;
+import app.shared.enums.AppointmentStatus;
+import app.api.appointment.AppointmentEntity;
+import app.api.medicalhistory.MedicalHistoryEntity;
+import app.api.medicalrecord.MedicalRecordEntity;
+import app.api.medicalrecord.MedicalRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

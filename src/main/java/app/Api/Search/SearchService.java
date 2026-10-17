@@ -1,13 +1,16 @@
 package app.api.search;
 
+import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.mapping.IndexCoordinates;
+import org.springframework.data.elasticsearch.core.query.FetchSourceFilterBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,9 +31,52 @@ public class SearchService {
             "title", "diagnosis", "medicineNames", "city"
     };
 
+    /**
+     * Fields for type-ahead. {@code name} / {@code title} are search_as_you_type, so their shingle
+     * subfields exist; unmapped ones (e.g. an index not yet reindexed) are skipped by multi_match.
+     * Only short title-like fields: {@code diagnosis} is paragraphs of prose, useless as a suggestion.
+     */
+    private static final String[] SUGGEST_FIELDS = {
+            "name", "name._2gram", "name._3gram",
+            "title", "title._2gram", "title._3gram",
+            "genericName"
+    };
+    private static final String[] SUGGEST_SOURCE = {"id", "name", "title"};
+    static final int MIN_SUGGEST_LENGTH = 2;
+
     private final ElasticsearchOperations es;
 
     public record Hit(String type, Long id, String title, float score) {}
+
+    /**
+     * Prefix suggestions for a search box. Kept cheap on purpose: no fuzziness, no total-hit count,
+     * and only the title fields come back in {@code _source}.
+     */
+    public List<Hit> suggest(String q, String type, boolean isAdmin, int size) {
+        String prefix = q == null ? "" : q.strip();
+        if (prefix.length() < MIN_SUGGEST_LENGTH) return List.of();
+
+        List<String> types = resolveTypes(type, isAdmin);
+
+        NativeQuery query = NativeQuery.builder()
+                .withQuery(b -> b.multiMatch(m -> m
+                        .query(prefix)
+                        .type(TextQueryType.BoolPrefix)
+                        .fields(List.of(SUGGEST_FIELDS))))
+                .withSourceFilter(new FetchSourceFilterBuilder().withIncludes(SUGGEST_SOURCE).build())
+                .withTrackTotalHits(false)
+                // over-fetch so dropping duplicate titles still fills the list
+                .withPageable(PageRequest.of(0, size * 2))
+                .build();
+
+        Set<String> seen = new HashSet<>();
+        return es.search(query, Map.class, IndexCoordinates.of(types.toArray(String[]::new)))
+                .getSearchHits().stream()
+                .map(this::toHit)
+                .filter(h -> h.title() != null && seen.add(h.type() + ':' + h.title().toLowerCase()))
+                .limit(size)
+                .toList();
+    }
 
     public List<Hit> search(String q, String type, boolean isAdmin, int page, int size) {
         List<String> types = resolveTypes(type, isAdmin);

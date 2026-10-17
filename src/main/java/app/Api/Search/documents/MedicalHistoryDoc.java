@@ -19,7 +19,7 @@ public class MedicalHistoryDoc {
     @Field(type = FieldType.Keyword)
     private String type;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Search_As_You_Type)
     private String title;
 
     private Boolean active;

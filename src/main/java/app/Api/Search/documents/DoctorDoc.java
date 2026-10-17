@@ -14,7 +14,7 @@ public class DoctorDoc {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Search_As_You_Type)
     private String name;
 
     @Field(type = FieldType.Text)

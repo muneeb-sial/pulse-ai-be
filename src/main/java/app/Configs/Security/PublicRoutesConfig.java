@@ -23,6 +23,7 @@ public class PublicRoutesConfig {
             "/swagger-ui.html",
             "/search/reindex",
             "/search",
+            "/search/suggest",
             "/swagger-ui/**",
             "/v3/api-docs/**"
     );

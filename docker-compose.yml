@@ -90,6 +90,11 @@ services:
       # Keep a dev box from phoning home.
       GF_ANALYTICS_REPORTING_ENABLED: "false"
       GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      # Grafana 13 tries to auto-update its bundled plugins on every boot.
+      # That write fails against the read-only bundled dir, and the failing
+      # installer module has taken the whole Grafana service down with it.
+      # Nothing here needs updating at boot, so switch it off.
+      GF_PLUGINS_PREINSTALL_DISABLED: "true"
     volumes:
       # Datasource is provisioned from this file, so Prometheus is wired
       # up on first boot - nothing to click.
@@ -98,11 +103,54 @@ services:
     depends_on:
       - prometheus
 
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:9.4.2
+    container_name: filebeat-container
+    user: root
+    # --strict.perms=false: Filebeat refuses a config file it considers
+    # world-writable, and a Windows bind mount always looks that way to it.
+    command: ["filebeat", "-e", "--strict.perms=false"]
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      # The app runs on the host, so its log directory is bind-mounted in.
+      - ./logs:/logs:ro
+      # Remembers how far it has read, so a restart does not re-ship everything.
+      - filebeat_data:/usr/share/filebeat/data
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    # Must track the Elasticsearch version above - they are released in lockstep.
+    image: docker.elastic.co/kibana/kibana:9.4.2
+    container_name: kibana-container
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_HOSTS: '["http://elasticsearch:9200"]'
+      SERVER_NAME: kibana
+      SERVER_PUBLICBASEURL: http://localhost:5601
+      # No login: the elasticsearch service runs with xpack.security.enabled
+      # false, so there is no user database for Kibana to authenticate against.
+      # Local dev only.
+      # Fixed keys so saved objects survive a restart - Kibana otherwise
+      # generates random ones each boot and warns about it.
+      XPACK_ENCRYPTEDSAVEDOBJECTS_ENCRYPTIONKEY: pulseai_local_dev_saved_objects_key_32
+      XPACK_REPORTING_ENCRYPTIONKEY: pulseai_local_dev_reporting_key_32chars
+      XPACK_SECURITY_ENCRYPTIONKEY: pulseai_local_dev_security_key_32chars
+      TELEMETRY_ENABLED: "false"
+      TELEMETRY_OPTIN: "false"
+    volumes:
+      - kibana_data:/usr/share/kibana/data
+    depends_on:
+      - elasticsearch
+
 volumes:
   postgres_data:
   elasticsearch_data:
   prometheus_data:
   grafana_data:
+  filebeat_data:
+  kibana_data:
 
 networks:
   kafka-net:

@@ -1,0 +1,29 @@
+filebeat.inputs:
+  - type: filestream
+    id: pulse-ai-app-log
+    enabled: true
+    paths:
+      - /logs/pulse-ai.log
+    parsers:
+      # Boot writes one ECS JSON object per line. Lifting its keys to the top
+      # level (target: "") is what makes @timestamp and log.level real fields
+      # instead of a blob nested under "json".
+      - ndjson:
+          target: ""
+          overwrite_keys: true
+          add_error_key: true
+          expand_keys: true
+
+output.elasticsearch:
+  # Service name on the compose network, not localhost - inside this container
+  # localhost would be Filebeat itself.
+  hosts: ["http://elasticsearch:9200"]
+  index: "pulse-ai-logs-%{+yyyy.MM.dd}"
+
+# Boot already emits ECS, so Filebeat's own index template and ILM policy would
+# only fight it. A custom index name requires these three to be set together.
+setup.ilm.enabled: false
+setup.template.name: "pulse-ai-logs"
+setup.template.pattern: "pulse-ai-logs-*"
+
+logging.level: info

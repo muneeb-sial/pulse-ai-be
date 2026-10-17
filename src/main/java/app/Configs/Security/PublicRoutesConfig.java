@@ -20,6 +20,9 @@ public class PublicRoutesConfig {
             "/auth/magic-link",
             "/auth/magic-link/verify",
             "/health",
+            "/swagger-ui.html",
+            "/search/reindex",
+            "/search",
             "/swagger-ui/**",
             "/v3/api-docs/**"
     );

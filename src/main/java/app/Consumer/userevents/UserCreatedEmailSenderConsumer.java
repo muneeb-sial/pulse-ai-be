@@ -12,11 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class UserCreatedEmailSenderConsumer {
 
-    @KafkaListener(
-            topics = KafkaAppConfig.Topics.USER_CREATED,
-            groupId = KafkaAppConfig.consumerGroups.EMAIL_CONSUMER,
-            concurrency = "1"
-    )
+    // @KafkaListener(
+    //         topics = KafkaAppConfig.Topics.USER_CREATED,
+    //         groupId = KafkaAppConfig.consumerGroups.EMAIL_CONSUMER,
+    //         concurrency = "1"
+    // )
     public void consume(Object event, Acknowledgment ack) {
         try {
             log.info("Received OrderEvent");

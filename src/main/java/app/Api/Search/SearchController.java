@@ -24,7 +24,7 @@ public class SearchController {
             @RequestParam String q,
             @RequestParam(required = false) String type,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "5") int size
             // Authentication auth
             ) {
         boolean isAdmin = true;
@@ -40,7 +40,7 @@ public class SearchController {
     public ResponseEntity<List<SearchService.Hit>> suggest(
             @RequestParam(defaultValue = "") String q,
             @RequestParam(required = false) String type,
-            @RequestParam(defaultValue = "8") int size
+            @RequestParam(defaultValue = "4") int size
             ) {
         boolean isAdmin = true; // same role gap as search()
         List<SearchService.Hit> hits = service.suggest(q, type, isAdmin, Math.max(1, Math.min(size, 10)));

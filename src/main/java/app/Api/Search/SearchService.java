@@ -1,5 +1,6 @@
 package app.api.search;
 
+import app.configs.timing.LogExecutionTime;
 import co.elastic.clients.elasticsearch._types.query_dsl.TextQueryType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
+@LogExecutionTime
 public class SearchService {
 
     /** Searchable index aliases. Public = any authenticated caller, the rest need ADMIN (see CLAUDE.md role gap). */

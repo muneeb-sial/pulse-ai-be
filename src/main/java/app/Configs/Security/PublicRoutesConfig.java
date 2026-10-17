@@ -20,6 +20,11 @@ public class PublicRoutesConfig {
             "/auth/magic-link",
             "/auth/magic-link/verify",
             "/health",
+            // Scraped by Prometheus, which sends no bearer token. Listed as two
+            // exact paths rather than "/actuator/**" so a future endpoint cannot
+            // become public by accident.
+            "/actuator/prometheus",
+            "/actuator/health",
             "/swagger-ui.html",
             "/search/reindex",
             "/search",

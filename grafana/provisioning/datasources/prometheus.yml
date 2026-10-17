@@ -1,0 +1,19 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    # Pinned so provisioned dashboards can reference it on a fresh volume.
+    uid: pulse-prometheus
+    access: proxy
+    # Container-to-container on the compose default network, so this is the
+    # service name and port 9090 - not localhost:9090, which from inside the
+    # Grafana container would mean Grafana itself.
+    url: http://prometheus:9090
+    isDefault: true
+    editable: true
+    jsonData:
+      # Matches scrape_interval in prometheus.yml; stops Grafana asking for
+      # finer resolution than the data actually has.
+      timeInterval: 10s
+      httpMethod: POST

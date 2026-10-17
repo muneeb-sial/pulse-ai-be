@@ -48,6 +48,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-database-postgresql")
 	implementation 'net.datafaker:datafaker:2.4.4'
 	implementation 'org.springframework.boot:spring-boot-starter-aspectj'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'io.micrometer:micrometer-registry-prometheus'
 }
 
 tasks.named('test') {

@@ -1,0 +1,14 @@
+apiVersion: 1
+
+providers:
+  - name: pulse-ai
+    orgId: 1
+    folder: ''
+    type: file
+    # UI edits are kept until restart, then the file wins again.
+    allowUiUpdates: true
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    options:
+      path: /etc/grafana/provisioning/dashboards
+      foldersFromFilesStructure: false
